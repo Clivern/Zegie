@@ -18,7 +18,12 @@ from zegie.post import PostFromTopic
 
 
 def main():
-    generator_from_link = PostFromLink(os.getenv("OPENAI_API_KEY"))
+    generator_from_link = PostFromLink(
+        api_key=os.getenv("COHERE_API_KEY"),
+        model="command-r7b-12-2024",
+        temperature=0.7,
+        base_url="https://api.cohere.ai/compatibility/v1",
+    )
     result = generator_from_link.generate(
         "https://www.example.com/blog/post-1",
         "give me a casual post for twitter with a limit 200 characters about .... etc",
@@ -30,7 +35,12 @@ def main():
         print(f"  Completion tokens: {result['token_usage']['completion_tokens']}")
         print(f"  Total tokens: {result['token_usage']['total_tokens']}")
 
-    generator_from_topic = PostFromTopic(os.getenv("OPENAI_API_KEY"))
+    generator_from_topic = PostFromTopic(
+        api_key=os.getenv("COHERE_API_KEY"),
+        model="command-r7b-12-2024",
+        temperature=0.7,
+        base_url="https://api.cohere.ai/compatibility/v1",
+    )
     result = generator_from_topic.generate(
         "generate a casual post for twitter with a limit 100 characters about cloud computing"
     )

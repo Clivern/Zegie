@@ -26,6 +26,7 @@ class PostFromTopic:
         api_key: Optional[str] = None,
         model: str = "gpt-5.2",
         temperature: float = 0.7,
+        base_url: Optional[str] = "https://api.openai.com/v1",
     ):
         """
         Initialize the PostFromTopic.
@@ -34,11 +35,15 @@ class PostFromTopic:
             api_key: OpenAI API key.
             model: OpenAI model to use for generation.
             temperature: Temperature for generation (0.0 to 2.0).
+            base_url: Base URL for the API (e.g., Cohere's OpenAI-compatible endpoint).
         """
-        self.api_key = api_key
-        self.llm = ChatOpenAI(
-            openai_api_key=self.api_key, model=model, temperature=temperature
-        )
+        kwargs = {
+            "openai_api_key": api_key,
+            "model": model,
+            "temperature": temperature,
+            "base_url": base_url,
+        }
+        self.llm = ChatOpenAI(**kwargs)
 
     def generate(self, user_prompt: str) -> Dict[str, Any]:
         """
