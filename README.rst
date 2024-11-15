@@ -1,0 +1,38 @@
+.. image:: https://images.unsplash.com/photo-1650999344693-b76317f7b9ae
+  :width: 700
+  :alt: Zegie - AI System to Streamlines Content Creation for Marketers and Creators
+
+|
+
+.. image:: https://img.shields.io/pypi/v/zegie.svg
+    :alt: PyPI-Server
+    :target: https://pypi.org/project/zegie/
+.. image:: https://github.com/Clivern/zegie/actions/workflows/ci.yml/badge.svg
+    :alt: Build Status
+    :target: https://github.com/Clivern/zegie/actions/workflows/ci.yml
+.. image:: https://img.shields.io/pypi/l/zegie.svg
+    :alt: License
+    :target: https://pypi.org/project/zegie/
+.. image:: https://static.pepy.tech/badge/zegie
+    :alt: PyPI Downloads
+    :target: https://pepy.tech/projects/zegie
+
+|
+
+=====
+Zegie
+=====
+
+**AI System to Streamlines Content Creation for Marketers and Creators**
+
+Support
+-------
+
+* Documentation: https://github.com/clivern/zegie/
+* Issues: https://github.com/clivern/zegie/issues
+* Email: hello@clivern.com
+
+Changelog
+---------
+
+See `CHANGELOG.rst` for a detailed history of changes.
