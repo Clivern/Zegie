@@ -65,7 +65,8 @@ class PostFromTopic:
                 HumanMessage(
                     content=f"""Follow the user's instructions to create a post:
 User Request: {user_prompt}
-Generate the post according to the user's specifications:"""
+Generate the post according to the user's specifications:
+IMPORTANT: Return ONLY the post content itself. Do NOT include any introductory text, explanations, or quotes around the content. Return the post text directly without any wrapper text."""
                 ),
             ]
         )
