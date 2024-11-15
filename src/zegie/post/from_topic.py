@@ -35,7 +35,7 @@ class PostFromTopic:
             api_key: OpenAI API key.
             model: OpenAI model to use for generation.
             temperature: Temperature for generation (0.0 to 2.0).
-            base_url: Base URL for the API (e.g., Cohere's OpenAI-compatible endpoint).
+            base_url: Base URL for the API.
         """
         kwargs = {
             "openai_api_key": api_key,
