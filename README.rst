@@ -1,6 +1,6 @@
 .. image:: https://images.unsplash.com/photo-1720214655750-c400b75fcfa2
   :width: 700
-  :alt: Zegie - AI System to Streamlines Content Creation for Marketers and Creators
+  :alt: Zegie - Python SDK to Streamline Content Creation for Marketers and Creators
 
 |
 
@@ -17,4 +17,4 @@
 Zegie
 =====
 
-AI SDK to Streamlines Content Creation for Marketers and Creators.
+Python SDK to Streamline Content Creation for Marketers and Creators.
