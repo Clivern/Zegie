@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Optional, Dict, Any
+from typing import Dict, Any
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -23,10 +23,10 @@ class PostFromTopic:
 
     def __init__(
         self,
-        api_key: Optional[str] = None,
+        api_key: str,
         model: str = "gpt-5.2",
         temperature: float = 0.7,
-        base_url: Optional[str] = "https://api.openai.com/v1",
+        base_url: str = "https://api.openai.com/v1",
     ):
         """
         Initialize the PostFromTopic.
