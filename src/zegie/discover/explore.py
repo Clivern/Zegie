@@ -14,4 +14,6 @@
 
 
 class Explore:
+    """Explore class to search embeddings and retrieve relevant content."""
+
     pass

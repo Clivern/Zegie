@@ -12,6 +12,31 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import List
+from .brand import Brand
+
 
 class Crawler:
-    pass
+    """Crawler to scrape links and extract text content from websites."""
+
+    def __init__(
+        self,
+        timeout: int = 30,
+        max_chunk_length: int = 100000,
+    ):
+        """
+        Initialize the Crawler.
+
+        Args:
+            timeout: Request timeout in seconds.
+            max_chunk_length: Maximum content length to extract.
+            headers: Custom headers for requests.
+        """
+        self.timeout = timeout
+        self.max_chunk_length = max_chunk_length
+
+    def crawl(self, brand: Brand) -> List[str]:
+        """Crawl the brand's website and extract the content."""
+        # This will use async to crawl the website and extract the content.
+        # and return content chunks that is semantically meaningful.
+        pass

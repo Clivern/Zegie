@@ -14,4 +14,6 @@
 
 
 class Storage:
+    """Storage class to convert text to embeddings and store them in Qdrant DB."""
+
     pass
