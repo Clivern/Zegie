@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import asyncio
+import re
 import unicodedata
 from typing import List
 from .brand import Brand
@@ -107,9 +108,32 @@ class Crawler:
             # Normalize Unicode characters and ensure proper encoding
             # This fixes issues with emojis and special characters
             extracted_content = unicodedata.normalize('NFKC', extracted_content)
+            # Clean up excessive whitespace (collapse multiple newlines to max 2)
+            extracted_content = self._clean_whitespace(extracted_content)
             return extracted_content
         except Exception:
             return ""
+
+    def _clean_whitespace(self, content: str) -> str:
+        """
+        Clean up excessive whitespace in extracted content.
+
+        Args:
+            content: Raw text content with potential excessive whitespace.
+
+        Returns:
+            Content with normalized whitespace.
+        """
+        # Collapse multiple consecutive newlines (3+) to maximum of 2 newlines
+        content = re.sub(r'\n{3,}', '\n\n', content)
+        # Collapse multiple consecutive spaces to single space
+        content = re.sub(r' +', ' ', content)
+        # Remove leading/trailing whitespace from each line
+        lines = [line.rstrip() for line in content.split('\n')]
+        # Remove trailing empty lines
+        while lines and not lines[-1].strip():
+            lines.pop()
+        return '\n'.join(lines)
 
     def _chunk_content(self, content: str) -> List[str]:
         """
@@ -127,4 +151,13 @@ class Crawler:
         if len(content) > self.max_chunk_length:
             content = content[: self.max_chunk_length]
 
-        return self.text_splitter.split_text(content)
+        chunks = self.text_splitter.split_text(content)
+        # Clean up each chunk to remove excessive whitespace
+        cleaned_chunks = []
+        for chunk in chunks:
+            cleaned = self._clean_whitespace(chunk)
+            # Only include chunks that have actual content (not just whitespace)
+            if cleaned.strip():
+                cleaned_chunks.append(cleaned)
+
+        return cleaned_chunks
