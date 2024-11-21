@@ -16,6 +16,7 @@ import asyncio
 from typing import List
 from .brand import Brand
 from langchain_community.document_loaders import WebBaseLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
 class Crawler:
@@ -24,7 +25,9 @@ class Crawler:
     def __init__(
         self,
         timeout: int = 30,
-        max_chunk_length: int = 100000,
+        max_chunk_length: int = 10000,
+        chunk_size: int = 1000,
+        chunk_overlap: int = 200,
     ):
         """
         Initialize the Crawler.
@@ -32,10 +35,16 @@ class Crawler:
         Args:
             timeout: Request timeout in seconds.
             max_chunk_length: Maximum content length to extract.
-            headers: Custom headers for requests.
+            chunk_size: Maximum size of chunks to split text into.
+            chunk_overlap: Overlap between chunks to maintain context.
         """
         self.timeout = timeout
         self.max_chunk_length = max_chunk_length
+        self.text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=chunk_size,
+            chunk_overlap=chunk_overlap,
+            length_function=len,
+        )
 
     def crawl(self, brand: Brand) -> List[str]:
         """
@@ -103,5 +112,11 @@ class Crawler:
         """
         if not content or content == "":
             return []
-        # TODO: Implement chunking logic here.
-        return [content]
+
+        # Truncate content if it exceeds max_chunk_length
+        if len(content) > self.max_chunk_length:
+            content = content[: self.max_chunk_length]
+
+        # Split content into chunks using RecursiveCharacterTextSplitter
+        chunks = self.text_splitter.split_text(content)
+        return chunks
