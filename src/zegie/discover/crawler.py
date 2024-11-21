@@ -113,10 +113,7 @@ class Crawler:
         if not content or content == "":
             return []
 
-        # Truncate content if it exceeds max_chunk_length
         if len(content) > self.max_chunk_length:
             content = content[: self.max_chunk_length]
 
-        # Split content into chunks using RecursiveCharacterTextSplitter
-        chunks = self.text_splitter.split_text(content)
-        return chunks
+        return self.text_splitter.split_text(content)
