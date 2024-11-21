@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import asyncio
+import unicodedata
 from typing import List
 from .brand import Brand
 from langchain_community.document_loaders import WebBaseLoader
@@ -103,6 +104,9 @@ class Crawler:
             loader = WebBaseLoader(url)
             documents = await asyncio.to_thread(loader.load)
             extracted_content = "\n\n".join([doc.page_content for doc in documents])
+            # Normalize Unicode characters and ensure proper encoding
+            # This fixes issues with emojis and special characters
+            extracted_content = unicodedata.normalize('NFKC', extracted_content)
             return extracted_content
         except Exception:
             return ""
