@@ -14,8 +14,8 @@
 
 import asyncio
 from typing import List
-from langchain_community.document_loaders import WebBaseLoader
 from .brand import Brand
+from langchain_community.document_loaders import WebBaseLoader
 
 
 class Crawler:
