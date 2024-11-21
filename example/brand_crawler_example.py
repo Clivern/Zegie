@@ -1,0 +1,85 @@
+# Copyright 2025 Clivern
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+from zegie.discover import Brand, Crawler
+
+
+def main():
+    brand = Brand(
+        name="Example Tech Company",
+        industry="Technology",
+        description="A leading technology company specializing in AI and cloud solutions",
+        website_url="https://www.example.com",
+        links=[
+            "https://www.example.com/about",
+            "https://www.example.com/products",
+        ],
+    )
+
+    brand.add_link("https://www.example.com/blog")
+    brand.add_links(
+        [
+            "https://www.example.com/contact",
+            "https://www.example.com/careers",
+        ]
+    )
+
+    print("Brand Information:")
+    print(f"  Name: {brand.name}")
+    print(f"  Industry: {brand.industry}")
+    print(f"  Description: {brand.description}")
+    print(f"  Website URL: {brand.website_url}")
+    print(f"  Links to crawl: {len(brand.links)}")
+    for i, link in enumerate(brand.links, 1):
+        print(f"    {i}. {link}")
+    print()
+
+    brand_dict = brand.to_dict()
+    print("Brand as dictionary:")
+    print(f"  {brand_dict}")
+    print()
+
+    crawler = Crawler(
+        timeout=30,
+        max_chunk_length=100000,
+    )
+
+    print("Crawling brand website...")
+    print("This may take a moment depending on the number of URLs...")
+    print()
+
+    try:
+        content_chunks = crawler.crawl(brand)
+
+        print(f"Successfully crawled {len(content_chunks)} content chunk(s)")
+        print()
+
+        for i, chunk in enumerate(content_chunks, 1):
+            print(f"Content Chunk {i}:")
+            print("-" * 80)
+            preview = chunk[:500] if len(chunk) > 500 else chunk
+            print(preview)
+            if len(chunk) > 500:
+                print(f"... (truncated, total length: {len(chunk)} characters)")
+            print("-" * 80)
+            print()
+
+    except Exception as e:
+        print(f"Error during crawling: {e}")
+        print("Note: This example uses example.com which may not be accessible.")
+        print("Replace with a real website URL to see actual crawling results.")
+
+
+if __name__ == "__main__":
+    main()
