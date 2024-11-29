@@ -13,17 +13,18 @@
 # limitations under the License.
 
 import requests
+from .base import Scraper
 
 
-class Webbase:
+class WebScraper(Scraper):
     """
-    Webbase scraper.
+    Web scraper.
     https://github.com/Zieeio/Scraper
     """
 
     def __init__(self, scraper_url: str, api_key: str):
         """
-        Initialize the Webbase scraper.
+        Initialize the Web scraper.
 
         Args:
             scraper_url: The URL of the scraper.

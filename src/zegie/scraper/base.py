@@ -12,12 +12,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .base import Scraper
-from .web import WebScraper
-from .native import NativeScraper
+from abc import ABC, abstractmethod
 
-__all__ = [
-    "Scraper",
-    "WebScraper",
-    "NativeScraper",
-]
+
+class Scraper(ABC):
+    """
+    Abstract base class defining the contract for all scrapers.
+
+    All scraper implementations must inherit from this class and
+    implement the scrape method.
+    """
+
+    @abstractmethod
+    def scrape(self, url: str) -> str:
+        """
+        Scrape a URL and return the content.
+
+        Args:
+            url: The URL to scrape.
+
+        Returns:
+            The scraped content as a string.
+
+        Raises:
+            Exception: If scraping fails for any reason.
+        """
+        pass

@@ -15,7 +15,7 @@
 import asyncio
 from typing import List
 from .brand import Brand
-from zegie.scraper import Webbase as WebbaseScraper
+from zegie.scraper import Scraper
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
@@ -24,7 +24,7 @@ class Crawler:
 
     def __init__(
         self,
-        webbase_scraper: WebbaseScraper,
+        webbase_scraper: Scraper,
         timeout: int = 30,
         max_chunk_length: int = 50000,
         chunk_size: int = 2000,
@@ -34,7 +34,7 @@ class Crawler:
         Initialize the Crawler.
 
         Args:
-            webbase_scraper: WebbaseScraper scraper instance to use for scraping URLs.
+            webbase_scraper: Scraper instance to use for scraping URLs.
             timeout: Request timeout in seconds. Default: 30.
             max_chunk_length: Maximum content length to extract per page before truncation.
                              Higher values allow more content but use more memory.
