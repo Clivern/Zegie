@@ -15,12 +15,12 @@
 import os
 from zegie.post import PostFromLink
 from zegie.post import PostFromTopic
-from zegie.scraper import Webbase as WebbaseScraper
+from zegie.scraper import WebScraper
 
 
 def main():
     generator_from_link = PostFromLink(
-        webbase_scraper=WebbaseScraper(
+        scraper=WebScraper(
             scraper_url="http://127.0.0.1:8000",
             api_key="xkey",
         ),
