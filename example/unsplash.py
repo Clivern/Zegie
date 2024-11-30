@@ -29,88 +29,41 @@ def main():
 
     unsplash = Unsplash(access_key=access_key)
 
-    print("=" * 80)
-    print("Example 1: Search for images with full information")
-    print("=" * 80)
-    print()
-
-    # Search for images and get full information
+    # Example 1: Basic search
+    print("Example 1: Basic Search")
+    print("=" * 60)
     try:
-        images = unsplash.search("feet", per_page=3)
-        print(f"Found {len(images)} image(s) for 'nature':\n")
+        images = unsplash.search("nature", per_page=3)
+        print(f"Found {len(images)} image(s):\n")
 
         for i, image in enumerate(images, 1):
             print(f"Image {i}:")
-            print(f"  ID: {image.get('id')}")
-            print(f"  Description: {image.get('description', 'N/A')}")
-            print(f"  Alt Description: {image.get('alt_description', 'N/A')}")
+            print(f"  Description: {image.get('description') or image.get('alt_description') or 'N/A'}")
             print(f"  Dimensions: {image.get('width')}x{image.get('height')} pixels")
-            print(f"  Color: {image.get('color', 'N/A')}")
             if image.get("user"):
                 print(f"  Photographer: {image['user'].get('name', 'N/A')}")
-            print(f"  Regular URL: {image.get('urls', {}).get('regular', 'N/A')}")
+            print(f"  URL: {image.get('urls', {}).get('regular', 'N/A')}")
             print()
     except Exception as e:
-        print(f"Error searching images: {e}")
-        print()
+        print(f"Error: {e}\n")
 
-    print("=" * 80)
-    print("Example 2: Get just image URLs (showing different sizes)")
-    print("=" * 80)
-    print()
-
-    # Get just the image URLs with different sizes
+    # Example 2: Search with filters
+    print("Example 2: Search with Filters")
+    print("=" * 60)
     try:
-        # Show that different sizes have different widths in URLs
-        print("Note: The 'w=' parameter in URLs shows the requested size width:")
-        print("  - thumb: 200px")
-        print("  - small: 400px")
-        print("  - regular: 1080px (default)")
-        print("  - full: original dimensions (varies)")
-        print("  - raw: original dimensions (varies)")
-        print()
-
-        # Get full image info to show actual dimensions
-        images = unsplash.search("mountains", per_page=3)
-        print(f"Found {len(images)} image(s) for 'mountains':\n")
-        for i, image in enumerate(images, 1):
-            print(f"Image {i}:")
-            print(
-                f"  Actual dimensions: {image.get('width')}x{image.get('height')} pixels"
-            )
-            print(f"  Thumb URL (200px): {image.get('urls', {}).get('thumb', 'N/A')}")
-            print(f"  Small URL (400px): {image.get('urls', {}).get('small', 'N/A')}")
-            print(
-                f"  Regular URL (1080px): {image.get('urls', {}).get('regular', 'N/A')}"
-            )
-            print(f"  Full URL (original): {image.get('urls', {}).get('full', 'N/A')}")
-            print()
-    except Exception as e:
-        print(f"Error getting image URLs: {e}")
-        print()
-
-    print("=" * 80)
-    print("Example 3: Search with filters (landscape orientation)")
-    print("=" * 80)
-    print()
-
-    # Search with orientation filter
-    try:
-        landscape_images = unsplash.search(
+        images = unsplash.search(
             "sunset", per_page=3, orientation="landscape", order_by="popular"
         )
-        print(f"Found {len(landscape_images)} landscape image(s) for 'sunset':\n")
-        for i, image in enumerate(landscape_images, 1):
-            print(f"Image {i}:")
-            print(f"  URL: {image.get('urls', {}).get('regular', 'N/A')}")
-            description = image.get('description') or image.get('alt_description') or 'N/A'
-            if description != 'N/A':
-                description = description[:60] + '...' if len(description) > 60 else description
-            print(f"  Description: {description}")
-            print()
+        print(f"Found {len(images)} landscape sunset image(s):\n")
+
+        for i, image in enumerate(images, 1):
+            desc = image.get("description") or image.get("alt_description") or "N/A"
+            if len(desc) > 60:
+                desc = desc[:60] + "..."
+            print(f"{i}. {desc}")
+            print(f"   {image.get('urls', {}).get('regular', 'N/A')}")
     except Exception as e:
-        print(f"Error searching with filters: {e}")
-        print()
+        print(f"Error: {e}\n")
 
 
 if __name__ == "__main__":
